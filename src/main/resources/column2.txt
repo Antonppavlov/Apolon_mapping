@@ -1,0 +1,67 @@
+вода, г
+белки, г
+жиры, г
+углеводы, г
+моно- и дисахариды, г
+клетчатка, г
+крахмал, г
+пектин, г
+органические кислоты, г
+зола, г
+калий, мг
+кальций, мг
+магний, мг
+натрий, мг
+фосфор, мг
+железо, мкг
+йод, мкг
+кобальт, мкг
+марганец, мкг
+медь, мкг
+молибден, мкг
+фтор, мкг
+цинк, мкг
+витамин А(ретинол), мг,
+витамин B-каротин, мг
+витамин С (аскорбиновая кислота), мг
+витамин В1 (тиамин), мг
+витамин В2 (рибофлавин), мг
+витамин В9 (фолиевая кислота), мкг
+витамин Е(токоферол), мг,
+витамин РР (ниацин), мг
+калорийность, ккал
+
+
+
+`water_g` DECIMAL(7,2) NULL,
+`proteins_g` DECIMAL(7,2) NULL,
+`fats_g` DECIMAL(7,2) NULL,
+`carbohydrates_g` DECIMAL(7,2) NULL,
+`mono_and_disaccharides_g` DECIMAL(7,2) NULL,
+`fiber_g` DECIMAL(7,2) NULL,
+`starch_g` DECIMAL(7,2) NULL,
+`pectin_g` DECIMAL(7,2) NULL,
+`organic_acids_g` DECIMAL(7,2) NULL,
+`ash_g` DECIMAL(7,2) NULL,
+`potassium_mg` DECIMAL(7,2) NULL,
+`calcium_mg` DECIMAL(7,2) NULL,
+`magnesium_mg` DECIMAL(7,2) NULL,
+`sodium_mg` DECIMAL(7,2) NULL,
+`phosphorus_mg` DECIMAL(7,2) NULL,
+`iron_g` DECIMAL(7,2) NULL,
+`iodine_mkg` DECIMAL(7,2) NULL,
+`cobalt_mg` DECIMAL(7,2) NULL,
+`manganese_mcg` DECIMAL(7,2) NULL,
+`copper_g` DECIMAL(7,2) NULL,
+`molybdenum_g` DECIMAL(7,2) NULL,
+`fluorine_g` DECIMAL(7,2) NULL,
+`zinc_g` DECIMAL(7,2) NULL,
+`vitamin_a_retinol_mg` DECIMAL(7,2) NULL,
+`vitamin_b_carotene_mg` DECIMAL(7,2) NULL,
+`vitamin_c_ascorbic_acid_mg` DECIMAL(7,2) NULL,
+`vitamin_b1_thiamine_mg` DECIMAL(7,2) NULL,
+`vitamin_b2_riboflavin_mg` DECIMAL(7,2) NULL,
+`vitamin_b9_folic_acid_g` DECIMAL(7,2) NULL,
+`vitamin_e_tocopherol_mg` DECIMAL(7,2) NULL,
+`vitamin_pp_niacin_mg` DECIMAL(7,2) NULL,
+`calorie_calories` DECIMAL(7,2) NULL,
