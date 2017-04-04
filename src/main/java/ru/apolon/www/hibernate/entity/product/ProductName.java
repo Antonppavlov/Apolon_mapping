@@ -1,4 +1,4 @@
-package ru.apolon.www.hibernate.entity;
+package ru.apolon.www.hibernate.entity.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -4,13 +4,13 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
-import ru.apolon.www.hibernate.dao.ProductDAO;
-import ru.apolon.www.hibernate.dao.ProductDataDAO;
-import ru.apolon.www.hibernate.dao.ProductNameDAO;
-import ru.apolon.www.hibernate.dao.ProductTypeDAO;
-import ru.apolon.www.hibernate.entity.Product;
-import ru.apolon.www.hibernate.entity.ProductData;
-import ru.apolon.www.hibernate.entity.ProductName;
+import ru.apolon.www.hibernate.dao.product.ProductDAO;
+import ru.apolon.www.hibernate.dao.product.ProductDataDAO;
+import ru.apolon.www.hibernate.dao.product.ProductNameDAO;
+import ru.apolon.www.hibernate.dao.product.ProductTypeDAO;
+import ru.apolon.www.hibernate.entity.product.Product;
+import ru.apolon.www.hibernate.entity.product.ProductData;
+import ru.apolon.www.hibernate.entity.product.ProductName;
 
 import java.math.BigDecimal;
 
@@ -29,6 +29,7 @@ public class ParsingData {
             Selenide.open("http://www.edimka.ru/prod" + i);
 
             String nameType = $("#center>p>b>a").getText();
+            System.out.println(nameType);
             int typeId = new ProductTypeDAO().getProductTypeId(nameType);
 
 

@@ -1,27 +1,32 @@
-package ru.apolon.www.hibernate.dao;
+package ru.apolon.www.hibernate.dao.product;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import ru.apolon.www.hibernate.dao.interfaces.IProductDataDAO;
-import ru.apolon.www.hibernate.entity.ProductData;
+import ru.apolon.www.hibernate.dao.interfaces.IProductDAO;
+import ru.apolon.www.hibernate.entity.product.Product;
 import ru.apolon.www.hibernate.utils.HibernateUtil;
 
 
-public class ProductDataDAO implements IProductDataDAO {
+public class ProductDAO implements IProductDAO{
     private final SessionFactory sessionFactory;
 
-    public ProductDataDAO() {
+    public ProductDAO() {
         this.sessionFactory = HibernateUtil.getSessionFactory();
     }
 
 
+
+
+
+
+
+
     @Override
-    public void insertProductData(ProductData productData) {
+    public void insertProduct(Product product) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(productData);
+        session.save(product);
         session.getTransaction().commit();
         session.close();
     }
-
 }

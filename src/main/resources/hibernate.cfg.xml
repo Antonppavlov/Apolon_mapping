@@ -15,11 +15,18 @@
 
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 
-        <mapping class="ru.apolon.www.hibernate.entity.Product"/>
-        <mapping class="ru.apolon.www.hibernate.entity.ProductName"/>
-        <mapping class="ru.apolon.www.hibernate.entity.ProductType"/>
-        <mapping class="ru.apolon.www.hibernate.entity.ProductData"/>
+        <mapping class="ru.apolon.www.hibernate.entity.product.Product"/>
+        <mapping class="ru.apolon.www.hibernate.entity.product.ProductName"/>
+        <mapping class="ru.apolon.www.hibernate.entity.product.ProductType"/>
+        <mapping class="ru.apolon.www.hibernate.entity.product.ProductData"/>
+        <mapping class="ru.apolon.www.hibernate.entity.food.Food"/>
+        <mapping class="ru.apolon.www.hibernate.entity.food.FoodName"/>
+        <mapping class="ru.apolon.www.hibernate.entity.food.FoodProducts"/>
+        <mapping class="ru.apolon.www.hibernate.entity.food.FoodRecipe"/>
+        <mapping class="ru.apolon.www.hibernate.entity.food.FoodSubtype"/>
+        <mapping class="ru.apolon.www.hibernate.entity.food.FoodType"/>
 
     </session-factory>
 </hibernate-configuration>

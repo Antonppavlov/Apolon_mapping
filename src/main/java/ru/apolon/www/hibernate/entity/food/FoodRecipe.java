@@ -1,4 +1,4 @@
-package ru.apolon.www.hibernate.entity;
+package ru.apolon.www.hibernate.entity.food;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,18 +16,18 @@ import javax.persistence.*;
 @NoArgsConstructor
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "product_type", schema = "apolon")
-public class ProductType {
+@Table(name = "food_recipe", schema = "apolon")
+public class FoodRecipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "type_ru")
-    private String typeRu;
+    @Column(name = "description_ru")
+    private String descriptionRu;
 
-    @Column(name = "type_eng")
-    private String typeEng;
+    @Column(name = "description_eng")
+    private String descriptionEng;
 
 }

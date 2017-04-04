@@ -1,27 +1,25 @@
 package ru.apolon.www.start;
 
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
-import ru.apolon.www.hibernate.dao.product.ProductDAO;
-import ru.apolon.www.hibernate.dao.product.ProductDataDAO;
-import ru.apolon.www.hibernate.dao.product.ProductNameDAO;
-import ru.apolon.www.hibernate.entity.product.Product;
-import ru.apolon.www.hibernate.entity.product.ProductData;
-import ru.apolon.www.hibernate.entity.product.ProductName;
+import ru.apolon.www.hibernate.dao.food.*;
+import ru.apolon.www.hibernate.entity.food.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by antonpavlov on 24.11.16.
  */
-public class ParsingNewProduct {
+public class ParsingFood {
     public static void main(String[] args) {
+//       // Integer брюква = new ProductNameDAO().getProductNameId("морКовь");
+//        Double d=22.2;
+//        Double a=100.00 / d;
+//        String formattedDouble = new DecimalFormat("#0.00").format(a);
+//        System.out.println();
         List<Integer> recipePages = new ArrayList<Integer>();
         recipePages.add(9384);
         recipePages.add(9386);
@@ -143,7 +141,7 @@ public class ParsingNewProduct {
         recipePages.add(9505);
         recipePages.add(9506);
         recipePages.add(9507);
-        recipePages.add(9491);
+       // recipePages.add(9491);
         recipePages.add(9539);
         recipePages.add(9540);
         recipePages.add(9541);
@@ -214,11 +212,11 @@ public class ParsingNewProduct {
         recipePages.add(9649);
         recipePages.add(9653);
         recipePages.add(9654);
-        recipePages.add(9624);
-        recipePages.add(9633);
-        recipePages.add(9634);
-        recipePages.add(9636);
-        recipePages.add(9641);
+       // recipePages.add(9624);
+        //recipePages.add(9633);
+        //recipePages.add(9634);
+       // recipePages.add(9636);
+        //recipePages.add(9641);
         recipePages.add(9651);
         recipePages.add(9652);
         recipePages.add(9667);
@@ -295,11 +293,11 @@ public class ParsingNewProduct {
         recipePages.add(10076);
         recipePages.add(10077);
         recipePages.add(9756);
-        recipePages.add(9763);
+        //recipePages.add(9763);
         recipePages.add(9764);
         recipePages.add(9809);
         recipePages.add(10094);
-        recipePages.add(10105);
+       // recipePages.add(10105);
         recipePages.add(10112);
         recipePages.add(9783);
         recipePages.add(9785);
@@ -415,150 +413,51 @@ public class ParsingNewProduct {
         ChromeDriverManager.getInstance().setup();
 
 
-        int id = 538;
         for (Integer integer : recipePages) {
+            System.err.println("!!!!!!!!!!!!"+integer);
+            System.err.println("!!!!!!!!!!!!"+integer);
+            System.err.println("!!!!!!!!!!!!"+integer);
             Selenide.open("http://www.edimka.ru/view/" + integer);
-            System.out.println(integer);
-            ElementsCollection tdProductList = $$("#center>table>tbody>tr[align='right']>td[align='left']");
+            String typeAndSbtypeFood = $("#center>h3>font").getText();
+            String substring = typeAndSbtypeFood.substring(8, typeAndSbtypeFood.length() - 2);
+            String[] split = substring.split(" / ");
+            String type = split[0];
+            String subtype = split[1];
+            String foodName = $("#center>h1").getText();
+            String recipe = $(".recipeInstructions.cbox").getText();
 
-            for (SelenideElement tdProduct : tdProductList) {
-                String textInTd = tdProduct.getText();
-                if (textInTd.equals("итого") || textInTd.equals("на 100 гр готового продукта")) {
-                    break;
-                } else {
-                    if (new ProductNameDAO().getProductNameId(textInTd) == null) {
-                        if (tdProduct.parent().$("td", 2).getText().equals("-")) {
-                            System.err.println("!!!!!!");
-                            System.err.println("!!!!!!");
-                            System.err.println(integer);
-                            System.err.println("!!!!!!");
-                            System.err.println("!!!!!!");
-                            ProductData productData = new ProductData();
-                            new ProductDataDAO().insertProductData(productData);
-                        } else {
-                            SelenideElement rowInTable = tdProduct.parent();
-                            Double productWeight = Double.valueOf(rowInTable.$("td", 2).getText());
-
-                            Double relativeTo100 = 100.00 / productWeight;
-
-                            ProductData productData = new ProductData();
-                            // productData.setId(id);
-                            productData.setProteinsG(BigDecimal.valueOf(relativeTo100 * Double.valueOf(rowInTable.$("td", 4).getText())));
-                            productData.setFatsG(BigDecimal.valueOf(relativeTo100 * Double.valueOf(rowInTable.$("td", 5).getText())));
-                            productData.setCarbohydratesG(BigDecimal.valueOf(relativeTo100 * Double.valueOf(rowInTable.$("td", 6).getText())));
-                            productData.setCalorieCalories(BigDecimal.valueOf(relativeTo100 * Double.valueOf(rowInTable.$("td", 7).getText())));
-                            new ProductDataDAO().insertProductData(productData);
-                        }
-
-
-//собрать и записать в дб данные о продукте
-
-//записать в тб имя продукта
-                        ProductName productName = new ProductName();
-                        // productName.setId(id);
-                        productName.setNameRu(textInTd);
-                        productName.setNameEng("null");
-                        new ProductNameDAO().insertProductName(productName);
-//создать запись в бд продукт тип=23
-                        if (tdProduct.parent().$("td", 2).getText().equals("-")) {
-                            Product product = new Product();
-                            //  product.setId(id);
-                            product.setProductTypeId(24);
-                            product.setProductNameId(id);
-                            product.setProductDataId(id);
-                            new ProductDAO().insertProduct(product);
-                        }
-                        else {
-                            Product product = new Product();
-                            //  product.setId(id);
-                            product.setProductTypeId(23);
-                            product.setProductNameId(id);
-                            product.setProductDataId(id);
-                            new ProductDAO().insertProduct(product);
-                        }
-
-
-                        id++;
-                        System.out.println(id);
-                    }
-                }
-
+            if (new FoodTypeDAO().getId(type) == null) {
+                FoodType foodType = new FoodType();
+                foodType.setNameRu(type);
+                new FoodTypeDAO().insert(foodType);
+            }
+            if (new FoodSubtypeDAO().getId(subtype) == null) {
+                FoodSubtype foodType = new FoodSubtype();
+                foodType.setNameRu(subtype);
+                new FoodSubtypeDAO().insert(foodType);
             }
 
+            FoodName foodName1 = new FoodName();
+            foodName1.setNameRu(foodName);
+            new FoodNameDAO().insert(foodName1);
+
+            FoodRecipe foodRecipe = new FoodRecipe();
+            foodRecipe.setDescriptionRu(recipe);
+            new FoodRecipeDAO().insert(foodRecipe);
+
+
+
+
+
+
+
+            Food food = new Food();
+            food.setFoodNameId(new FoodNameDAO().getId(foodName));
+            food.setFoodTypeId(new FoodTypeDAO().getId(type));
+            food.setFoodSubtypeId(new FoodSubtypeDAO().getId(subtype));
+            food.setFoodRecipeId(new FoodRecipeDAO().getId(recipe));
+
+            new FoodDAO().insert(food);
         }
-
-
     }
 }
-
-//
-//
-//
-//
-//    int id = 538;
-//        for (Integer integer : recipePages) {
-//                Selenide.open("http://www.edimka.ru/view/" + integer);
-//                System.out.println(integer);
-//                ElementsCollection tdProductList = $$("#center>table>tbody>tr[align='right']>td[align='left']");
-//
-//                for (SelenideElement tdProduct : tdProductList) {
-//                String textInTd = tdProduct.getText();
-//                if (textInTd.equals("итого") || textInTd.equals("на 100 гр готового продукта")) {
-//                break;
-//                } else {
-//
-//                if (new ProductNameDAO().getProductNameId(textInTd) == null) {
-//
-//                if (tdProduct.parent().$("td", 2).getText().equals("-")) {
-//                ProductData productData = new ProductData();
-//                new ProductDataDAO().insertProductData(productData);
-//                }
-//                else {
-//                SelenideElement rowInTable = tdProduct.parent();
-//                Double productWeight = Double.valueOf(rowInTable.$("td", 2).getText());
-//
-//                Double relativeTo100 = 100.00 / productWeight;
-//
-//                ProductData productData = new ProductData();
-//                // productData.setId(id);
-//                productData.setProteinsG(BigDecimal.valueOf(relativeTo100 * Double.valueOf(rowInTable.$("td", 4).getText())));
-//                productData.setFatsG(BigDecimal.valueOf(relativeTo100 * Double.valueOf(rowInTable.$("td", 5).getText())));
-//                productData.setCarbohydratesG(BigDecimal.valueOf(relativeTo100 * Double.valueOf(rowInTable.$("td", 6).getText())));
-//                productData.setCalorieCalories(BigDecimal.valueOf(relativeTo100 * Double.valueOf(rowInTable.$("td", 7).getText())));
-//                new ProductDataDAO().insertProductData(productData);
-//                }
-//
-//
-////собрать и записать в дб данные о продукте
-//
-////записать в тб имя продукта
-//                ProductName productName = new ProductName();
-//                // productName.setId(id);
-//                productName.setNameRu(textInTd);
-//                productName.setNameEng("null");
-//                new ProductNameDAO().insertProductName(productName);
-////создать запись в бд продукт тип=23
-//                Product product = new Product();
-//                //  product.setId(id);
-//                product.setProductTypeId(24);
-//                product.setProductNameId(id);
-//                product.setProductDataId(id);
-//                new ProductDAO().insertProduct(product);
-//
-//                id++;
-//                System.err.println(id);
-//                System.err.println(id);
-//                System.err.println(id);
-//                System.err.println(id);
-//                System.err.println(id);
-//                System.err.println(id);
-//                }
-//                }
-//
-//                }
-//
-//                }
-//
-//
-//                }
-//                }

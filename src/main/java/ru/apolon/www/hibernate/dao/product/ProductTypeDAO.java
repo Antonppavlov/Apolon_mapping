@@ -1,15 +1,14 @@
-package ru.apolon.www.hibernate.dao;
+package ru.apolon.www.hibernate.dao.product;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import ru.apolon.www.hibernate.dao.interfaces.IProductTypeDAO;
-import ru.apolon.www.hibernate.entity.ProductType;
+import ru.apolon.www.hibernate.entity.product.ProductType;
 import ru.apolon.www.hibernate.utils.HibernateUtil;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class ProductTypeDAO implements IProductTypeDAO {
 
         Root<ProductType> root = criteriaQuery.from(ProductType.class);
 
-        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("typeRu"), nameType));
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("nameRu"), nameType));
 
         Query query = session.createQuery(criteriaQuery);
 
